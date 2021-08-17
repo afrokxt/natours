@@ -1,0 +1,10 @@
+@mixin clearfix {
+    //append psuedo element after element to clear floats
+
+    &::after {
+        //speficy content property so it appears on page
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
