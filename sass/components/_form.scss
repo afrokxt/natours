@@ -1,0 +1,98 @@
+.form {
+  &__group:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+  &__input {
+    font-size: 1.5rem;
+    font-family: inherit;
+    color: inherit;
+    padding: 1.5rem 2rem;
+    border-radius: 2px;
+    background-color: rgba($color-white, 0.5);
+    border: none;
+    border-bottom: 3px solid transparent;
+    width: 90%;
+    display: block;
+    transition: all 0.2s;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 1rem 2rem, rgba($color-black, 0.1);
+      border-bottom: 3px solid $color-primary;
+    }
+    &:focus:invalid {
+      // shows a orange-color border on bottom when input is invalid
+      border-bottom: 3px solid $color-secondary-dark;
+    }
+    &::-webkit-input-placeholder {
+      color: $color-grey-dark-2;
+    }
+  }
+
+  &__label {
+    font-size: 1.2rem;
+
+    font-weight: 700;
+    margin-left: 2rem;
+    margin: 0.7rem;
+    display: block;
+    transition: all 0.2s;
+  }
+
+  &__input:placeholder-shown + &__label// general sibling selector == ~ ,, adjacent sibling selector (after first element) == +
+  {
+    // label animation for input fields -- this class is what we see before the user starts typing
+
+    opacity: 0; // cant be seen but still on page, however thius allows for animation
+    visibility: hidden; // removes element from dom, but cant be animated
+    transform: translateY(-4rem);
+  }
+
+  /* RADIO BUTTON STYLING */
+  &__radio-group {
+    width: 49%;
+    display: inline-block;
+  }
+
+  // hide default radio input element so we can use our custom built input element
+  &__radio-input {
+      display: none;
+  }
+  &__radio-label {
+    font-size: $default-font-size;
+    cursor: pointer;
+    position: relative;
+    padding-left: 4rem;
+  }
+  &__radio-button {
+    // Custom built radio button from scratch
+    height: 3rem;
+    width: 3rem;
+    border: 5px solid $color-primary;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: -0.1;
+
+    &::after // simulate radio button selection
+    {
+      content: ""; // must specify content for psuedo elements
+      display: block; // must specify display prop for psuedo elements
+      height: 1.3rem;
+      width: 1.3rem;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: $color-primary;
+      opacity: 0; // hidden initially
+      transition: opacity 0.2s;
+    }
+  }
+  // use checked psuedo class to fake 'highlighted' radio button
+  &__radio-input:checked ~ &__radio-label &__radio-button::after {
+    opacity: 1;
+  }
+}
